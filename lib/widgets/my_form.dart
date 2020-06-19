@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-
+import 'package:form_example/models/todo.dart';
 class MyForm extends StatefulWidget {
   @override
   _MyFormState createState() => _MyFormState();
@@ -10,7 +10,8 @@ class _MyFormState extends State<MyForm> {
 
   // You create Controlller to retrieve the value from the inputs
   var nameController = TextEditingController();
-  var ageController = TextEditingController();
+  var descController = TextEditingController();
+  var placeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
 
@@ -30,25 +31,36 @@ class _MyFormState extends State<MyForm> {
     // change the color and the font size
     Center(
       child: Column(children: <Widget>[
-        Text("My Form", style: TextStyle(fontSize: 32, 
+        Text("Add new Item", style: TextStyle(fontSize: 32, 
     color: Color.fromARGB(255, 255, 128, 20)),),
     TextField(
       controller: nameController,
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: 'Enter your name'
+        hintText: 'Enter item Name'
     )
       ),
       TextField(
-        controller: ageController,
+        controller: descController,
         decoration: InputDecoration(border: InputBorder.none,
-        hintText: 'Enter your age'
+        hintText: 'Enter item Description'
+        ),
+      ),
+      TextField(
+        controller: placeController,
+        decoration: InputDecoration(border: InputBorder.none,
+        hintText: 'Enter item Place'
         ),
       ),
       RaisedButton(child: Text("Press Me!"),
       onPressed: (){
-        print("Hello ${nameController.text} you are ${ageController.text} years old");
-      },)
+        // Navigator.pop(context); to close the page
+        // If you want to pass item, you pass it as second paremeter as an object
+        var newItem = Todo(name:nameController.text, 
+        description: descController.text, 
+        place: placeController.text);
+        Navigator.pop(context, {'item':newItem});
+           },)
       ]
       )
     )
