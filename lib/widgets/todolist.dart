@@ -17,11 +17,11 @@ class _TodoListState extends State<TodoList> {
 Todo(name: "Revise last week exercise",
 place: "At your home",
 description:"Button, ListView",
-completed: false),
+completed: true),
 Todo(name:"Buy burger",
 place:"Dengkil",
 description: "Oblong special",
-completed: false),
+completed: true),
 Todo(name: "Pay salary",
 place:"Office",
 description: "before 25th of the month",
@@ -55,9 +55,9 @@ return Card(child: ListTile(
 Text(todoList[index].name),
 subtitle: Text(todoList[index].place),
 trailing: Icon(Icons.arrow_forward_ios),
+leading: todoList[index].completed == true ? 
+Image.asset('assets/right.png') :Image.asset('assets/wrong.png') ,
 onTap: (){
-
- 
   Navigator.push(context, 
   MaterialPageRoute(builder: (context)=>DetailItem(todo: todoList[index],)));
 },
