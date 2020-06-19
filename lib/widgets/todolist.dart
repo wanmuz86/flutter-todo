@@ -61,6 +61,9 @@ onTap: (){
   Navigator.push(context, 
   MaterialPageRoute(builder: (context)=>DetailItem(todo: todoList[index],)));
 },
+onLongPress: (){
+  showAlertDialog(context, todoList[index]);
+},
 ),);
     }, 
     separatorBuilder: (BuildContext context,int index)
@@ -70,4 +73,39 @@ onTap: (){
   
     );
   }
+  showAlertDialog(BuildContext context, Todo todo) {
+
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text("OK"),
+    onPressed:  () {
+       Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Are you sure?"),
+    content: todo.completed == true ? Text("Are you sure to undo?") : 
+    Text("Are you sure to mark as completed?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
 }
